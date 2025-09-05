@@ -1,0 +1,6 @@
+@PromoQuityApi_HostAddress = http://localhost:5215
+
+GET {{PromoQuityApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

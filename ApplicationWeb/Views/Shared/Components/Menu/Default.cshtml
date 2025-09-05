@@ -1,0 +1,103 @@
+﻿@using ApplicationCommon;
+@model List<MenuItemDTO>
+
+@if (Model?.Any() ?? false)
+{
+    <ul class="navbar-nav">
+        @foreach (var menuItem in Model)
+        {
+            @await RenderMenuItem(menuItem)
+        }
+    </ul>
+}
+
+@{
+    async Task<Microsoft.AspNetCore.Html.IHtmlContent> RenderMenuItem(MenuItemDTO item)
+    {
+
+       
+
+
+
+        if (item.Children?.Any() ?? false)
+        {
+
+
+
+
+            <li class="nav-item">
+
+               
+
+
+                <a href="#" class="nav-link">
+                    @if (!string.IsNullOrEmpty(item.Icon))
+                    {
+                        <i class="@item.Icon me-1"></i>
+                    }
+                    else
+                    {
+                         <i class="nav-icon bi bi-palette"></i>
+                    }
+                  
+                    @item.Title
+                </a>
+
+
+
+                <ul class="nav nav-treeview">
+                    @foreach (var child in item.Children)
+                    {
+
+                        <li class="nav-item">
+                            <a href="@child.Path" class="nav-link">
+                                @if (!string.IsNullOrEmpty(child.Icon))
+                                {
+                                    <i class="@child.Icon me-1"></i>
+                                }
+                                else
+                                {
+                                    <i class="nav-icon bi bi-palette"></i>
+                                }
+                                @child.Title
+                            </a>
+                        </li>
+
+                      
+                    }
+                </ul>
+
+
+              
+            </li>
+
+
+
+          
+        }
+        else
+        {
+
+            <li class="nav-item">
+                <a href="@item.Path" class="nav-link">
+                    @if (!string.IsNullOrEmpty(item.Icon))
+                    {
+                        <i class="@item.Icon me-1"></i>
+                    }
+                    else
+                    {
+                        <i class="nav-icon bi bi-palette"></i>
+                    }
+
+                    
+                    @item.Title
+                </a>
+            </li>
+
+
+         
+        }
+
+        return await Task.FromResult(Html.Raw(""));
+    }
+}
